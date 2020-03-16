@@ -2,8 +2,12 @@
 cls
 set s_error=
 set d_error=
+set k_input=
 set hex_number=
 set /A flagishe=0
+IF -%1==- (set /P hex_number="Please, enter the hex number: " & set k_input=1)
+if -%k_input%==-1 (call hex_to_quarter %hex_number% & goto end)
+
 :BegLoop
 IF -%1==- GOTO ExitLoop
 set flag=0
@@ -14,6 +18,8 @@ SHIFT
 GOTO BegLoop
 :ExitLoop
 if %flagishe% GTR 1 (set d_error=1 & goto dot_error)
+
+
 echo %hex_number%
 
 set hex_number=%hex_number:0=00 00%
@@ -46,4 +52,6 @@ if -%s_error%==-1 echo You entered not acceptable symbols
 
 :dot_error
 if -%d_error%==-1 echo You entered too much dots
+
+:end
 
